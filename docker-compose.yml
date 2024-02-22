@@ -1,0 +1,25 @@
+version: '3.11'
+
+services:
+  web:
+    build: .
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; alembic init migrations; alembic revision --autogenerate; alembic upgrade head; uvicorn main:app --host 0.0.0.0'
+    volumes:
+      - .:/app
+    ports:
+      - 8008:8000
+    depends_on:
+      - db
+  db:
+    image: postgres:15-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=assassin073
+      - POSTGRES_DB=gas_task
+
+volumes:
+  postgres_data:

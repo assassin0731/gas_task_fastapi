@@ -1,3 +1,5 @@
+
+
 from datetime import date
 from statistics import median
 
@@ -13,14 +15,13 @@ app = FastAPI()
 
 device_stat = dict()
 
-
 @app.get("/")
 async def get_stats(id: int, session: AsyncSession = Depends(get_async_session)):
     """Статистика по идентификатору"""
     query = select(stat).where(stat.c.id == id)
     result = await session.execute(query)
     device_stat[id] = result.mappings().all()
-    return device_stat[id]
+    return {"stat": id}
 
 
 @app.post('/')

@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.ext.declarative import DeclarativeMeta, declarative_base
 from sqlalchemy.orm import sessionmaker
 
-DB_HOST = 'localhost'
+DB_HOST = '0.0.0.0'
 DB_PORT = 5432
 DB_NAME = 'gas_task'
 DB_USER = 'postgres'
